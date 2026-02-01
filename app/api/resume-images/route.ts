@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prismaClient";
 import { Prisma } from "@/lib/generated/prisma/client";
 import {
-  uploadProjectImage,
   validateImgSize,
   verifyFileSignature,
   deleteFromR2,
