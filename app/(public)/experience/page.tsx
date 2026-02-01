@@ -7,12 +7,12 @@ export default async function ExperiencesPage() {
   });
 
   return (
-    <section className="max-w-7xl mx-auto py-30 px-5 min-h-screen">
-      <h1 className="mb-12 text-center text-3xl font-bold animate-fade-in">
+    <section className="mx-auto min-h-screen max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
+      <h1 className="mb-12 text-center text-2xl sm:text-3xl font-bold animate-fade-in">
         Experience
       </h1>
 
-      <div className="flex flex-col gap-8 items-center justify-start">
+      <div className="flex flex-col gap-8 items-center">
         {experiences.map((exp) => (
           <ExperienceCard
             key={exp.id}

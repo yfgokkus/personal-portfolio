@@ -12,7 +12,6 @@ interface ExperienceCardProps {
   startDate: Date;
   endDate?: Date | null;
 }
-
 export default function ExperienceCard({
   role,
   description,
@@ -25,9 +24,19 @@ export default function ExperienceCard({
     d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
 
   return (
-    <div className="w-3xl rounded-xl border p-6 text-center border-slate-200 dark:border-slate-800 bg-slate-200/60 dark:bg-slate-900/60 animate-fade-in">
+    <div
+      className="
+        w-full
+        max-w-xl sm:max-w-2xl lg:max-w-3xl
+        rounded-xl border
+        p-5 sm:p-6
+        border-slate-200 dark:border-slate-800
+        bg-slate-200/60 dark:bg-slate-900/60
+        animate-fade-in
+      "
+    >
       {/* Role */}
-      <h3 className="text-xl font-semibold mb-2 prose-headings:font-normal prose-headings:text-2xl prose-strong:text-pink-700">
+      <h3 className="mb-2 text-lg sm:text-xl font-semibold text-center sm:text-left">
         <ReactMarkdown
           remarkPlugins={[remarkBreaks]}
           rehypePlugins={[rehypeSanitize]}
@@ -37,7 +46,7 @@ export default function ExperienceCard({
       </h3>
 
       {/* Corporation */}
-      <div className="text-sm font-medium mb-1">
+      <div className="mb-1 text-sm font-medium text-center sm:text-left">
         <ReactMarkdown
           remarkPlugins={[remarkBreaks]}
           rehypePlugins={[rehypeSanitize]}
@@ -47,7 +56,7 @@ export default function ExperienceCard({
       </div>
 
       {/* Location */}
-      <div className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+      <div className="mb-4 text-sm text-slate-600 dark:text-slate-400 text-center sm:text-left">
         <ReactMarkdown
           remarkPlugins={[remarkBreaks]}
           rehypePlugins={[rehypeSanitize]}
@@ -57,7 +66,16 @@ export default function ExperienceCard({
       </div>
 
       {/* Description */}
-      <div className="prose prose-sm prose-slate dark:prose-invert mx-auto mb-4 max-w-none text-justify wrap-break-words whitespace-normal">
+      <div
+        className="
+          prose prose-sm sm:prose-base
+          prose-slate dark:prose-invert
+          max-w-none
+          text-left
+          wrap-break-words
+          mb-4
+        "
+      >
         <ReactMarkdown
           remarkPlugins={[remarkBreaks]}
           rehypePlugins={[rehypeSanitize]}
@@ -66,8 +84,8 @@ export default function ExperienceCard({
         </ReactMarkdown>
       </div>
 
-      {/* Dates (plain text, not markdown) */}
-      <div className="text-xs text-slate-500 dark:text-slate-400">
+      {/* Dates */}
+      <div className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-right">
         {formatDate(startDate)} – {endDate ? formatDate(endDate) : "Present"}
       </div>
     </div>

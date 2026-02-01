@@ -16,14 +16,9 @@ export default function ContactPage() {
   }, []);
 
   const fetchMail = async () => {
-    const mailRes = await fetch("/api/user/email");
-
-    const mailJson = await mailRes.json();
-
-    if (!mailRes.ok) {
-      console.log(mailJson.error);
-    }
-    setMail(mailJson.data);
+    const res = await fetch("/api/user/email");
+    const json = await res.json();
+    if (res.ok) setMail(json.data);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,11 +57,21 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="mx-auto max-w-xl px-6 py-12 min-h-[calc(100vh-4rem)] flex items-center">
+    <section
+      className="
+        mx-auto min-h-[calc(100vh-4rem)]
+        max-w-2xl
+        px-4 sm:px-6 lg:px-8
+        py-16 sm:py-20
+        flex items-center
+      "
+    >
       <div className="w-full animate-fade-in">
-        <h2 className="mb-6 text-3xl font-bold text-center">Contact</h2>
+        <h2 className="mb-8 text-center font-bold text-2xl sm:text-3xl">
+          Contact
+        </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5 ">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <div>
             <label className="mb-1 block text-sm font-medium">Name</label>
@@ -76,9 +81,9 @@ export default function ContactPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full rounded-md border px-4 py-2 focus:outline-none
+              className="w-full rounded-md border px-4 py-2.5 text-sm
                 border-slate-300 bg-slate-50 text-slate-900
-                focus:border-slate-500
+                focus:outline-none focus:border-slate-500
                 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100
                 dark:focus:border-slate-400
               "
@@ -94,9 +99,9 @@ export default function ContactPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-md border px-4 py-2 focus:outline-none
+              className="w-full rounded-md border px-4 py-2.5 text-sm
                 border-slate-300 bg-slate-50 text-slate-900
-                focus:border-slate-500
+                focus:outline-none focus:border-slate-500
                 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100
                 dark:focus:border-slate-400
               "
@@ -107,14 +112,14 @@ export default function ContactPage() {
           <div>
             <label className="mb-1 block text-sm font-medium">Message</label>
             <textarea
-              rows={5}
+              rows={6}
               placeholder="Your message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              className="w-full rounded-md border px-4 py-2 focus:outline-none
+              className="w-full rounded-md border px-4 py-2.5 text-sm resize-none
                 border-slate-300 bg-slate-50 text-slate-900
-                focus:border-slate-500
+                focus:outline-none focus:border-slate-500
                 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100
                 dark:focus:border-slate-400
               "
@@ -123,15 +128,15 @@ export default function ContactPage() {
 
           {/* Error */}
           {error && (
-            <div className="text-sm rounded p-3 text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950/40">
+            <div className="rounded-md bg-red-50 p-3 text-sm text-red-600 dark:bg-red-950/40 dark:text-red-400">
               {error}
             </div>
           )}
 
           {/* Success */}
           {success && (
-            <div className="text-sm rounded p-3 text-green-600 bg-green-50 dark:text-green-400 dark:bg-green-950/40">
-              Message sent successfully! I'll get back to you soon.
+            <div className="rounded-md bg-green-50 p-3 text-sm text-green-600 dark:bg-green-950/40 dark:text-green-400">
+              Message sent successfully! I’ll get back to you soon.
             </div>
           )}
 
@@ -139,9 +144,10 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md px-4 py-2 font-medium transition
+            className="
+              w-full rounded-md px-4 py-2.5 text-sm font-medium transition
               bg-black text-white hover:bg-slate-800
-              disabled:bg-slate-400 disabled:cursor-not-allowed
+              disabled:cursor-not-allowed disabled:bg-slate-400
               dark:bg-slate-100 dark:text-black dark:hover:bg-slate-300
             "
           >
@@ -149,7 +155,7 @@ export default function ContactPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
+        <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
           You can also send e-mail to{" "}
           <span className="font-medium">{mail}</span>
         </p>

@@ -15,13 +15,13 @@ export default function NavButton({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-2 rounded-lg p-2 text-slate-900 dark:text-slate-200"
+      className="group flex items-center gap-2 rounded-lg p-1.5 sm:p-2 text-slate-900 dark:text-slate-200"
     >
-      <Icon className="w-5 h-5" />
+      <Icon className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
 
       <span
         className={cn(
-          "overflow-hidden max-w-0 group-hover:max-w-25 opacity-0 group-hover:opacity-100 whitespace-nowrap text-sm",
+          "overflow-hidden max-w-0 md:group-hover:max-w-25 opacity-0 md:group-hover:opacity-100 whitespace-nowrap text-sm",
           className,
         )}
         style={{ transition: "max-width 300ms ease, opacity 300ms ease" }}
