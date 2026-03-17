@@ -8,6 +8,7 @@ import {
 } from "@/lib/validations/experiences.validation";
 import { ZodError } from "zod";
 import { toErrorString } from "@/lib/zod";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -70,6 +71,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    revalidatePath("/experience");
+
     return NextResponse.json(
       { success: true, data: experience },
       { status: 201 },
@@ -110,6 +113,8 @@ export async function PATCH(request: NextRequest) {
       },
     });
 
+    revalidatePath("/experience");
+
     return NextResponse.json({ success: true, data: experience });
   } catch (error) {
     if (error instanceof ZodError) {
@@ -143,6 +148,8 @@ export async function DELETE(request: NextRequest) {
     await prisma.experiences.delete({
       where: { id },
     });
+
+    revalidatePath("/experience");
 
     return NextResponse.json({ success: true });
   } catch (error) {

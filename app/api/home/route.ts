@@ -1,6 +1,7 @@
 // app/api/home/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prismaClient";
+import { revalidatePath } from "next/cache";
 
 import { userInfoBaseSchema } from "@/lib/validations/user-info.validation";
 import { toErrorString } from "@/lib/zod";
@@ -57,20 +58,24 @@ export async function POST(request: NextRequest) {
 
     const userInfo = existing
       ? await prisma.user_info.update({
-          where: { id: existing.id },
-          data: parsed.data,
-        })
+        where: { id: existing.id },
+        data: parsed.data,
+      })
       : await prisma.user_info.create({
-          data: parsed.data,
-        });
+        data: parsed.data,
+      });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: {
         ...userInfo,
         titles: userInfo.titles ? userInfo.titles.split(",") : [],
       },
     });
+
+    revalidatePath("/");
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       { success: false, error: "Failed to save user info" },

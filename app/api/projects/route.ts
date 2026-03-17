@@ -9,6 +9,7 @@ import {
 import { ZodError } from "zod";
 import { toErrorString } from "@/lib/zod";
 import { deleteFromR2 } from "@/lib/r2";
+import { revalidatePath } from "next/cache";
 
 // ------------- GET ------------------
 
@@ -76,16 +77,18 @@ export async function POST(request: NextRequest) {
         github_link: validatedData.github_link,
         project_images: validatedData.project_images
           ? {
-              create: validatedData.project_images.map((img) => ({
-                image: img.image,
-              })),
-            }
+            create: validatedData.project_images.map((img) => ({
+              image: img.image,
+            })),
+          }
           : undefined,
       },
       include: {
         project_images: true,
       },
     });
+
+    revalidatePath("/projects");
 
     return NextResponse.json({ success: true, data: project }, { status: 201 });
   } catch (error) {
@@ -124,17 +127,19 @@ export async function PATCH(request: NextRequest) {
         ...updateData,
         project_images: project_images
           ? {
-              deleteMany: {},
-              create: project_images.map((img) => ({
-                image: img.image,
-              })),
-            }
+            deleteMany: {},
+            create: project_images.map((img) => ({
+              image: img.image,
+            })),
+          }
           : undefined,
       },
       include: {
         project_images: true,
       },
     });
+
+    revalidatePath("/projects");
 
     return NextResponse.json({ success: true, data: project });
   } catch (error) {
@@ -194,6 +199,8 @@ export async function DELETE(request: NextRequest) {
     await prisma.projects.delete({
       where: { id },
     });
+
+    revalidatePath("/projects");
 
     return NextResponse.json({ success: true });
   } catch (error) {
