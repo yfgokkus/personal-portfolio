@@ -47,11 +47,11 @@ export default function ProjectCard({ project }: Props) {
           <CarouselContent>
             {images.map((src, index) => (
               <CarouselItem key={index}>
-                <div className="relative w-full min-h-48 max-h-80 flex items-center justify-center bg-slate-900/5 dark:bg-slate-100/5">
+                <div className="relative w-full h-64 bg-slate-900/5 dark:bg-slate-100/5 overflow-hidden">
                   <img
                     src={src}
                     alt={`${project.name} image ${index + 1}`}
-                    className="max-w-full max-h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </CarouselItem>
