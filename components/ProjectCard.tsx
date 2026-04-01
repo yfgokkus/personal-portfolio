@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -48,10 +49,12 @@ export default function ProjectCard({ project }: Props) {
             {images.map((src, index) => (
               <CarouselItem key={index}>
                 <div className="relative w-full h-64 bg-slate-900/5 dark:bg-slate-100/5 overflow-hidden">
-                  <img
+                  <Image
                     src={src}
                     alt={`${project.name} image ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
               </CarouselItem>
